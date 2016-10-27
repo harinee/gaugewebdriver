@@ -96,8 +96,6 @@
             </activation>
             <properties>
                 <tags>"Sanity, !ToBeAutomated, !Regression"</tags>
-                <parallel>true</parallel>
-                <n>2</n>
             </properties>
         </profile>
         <profile>
@@ -110,6 +108,8 @@
             </activation>
             <properties>
                 <tags>"Regression, !ToBeAutomated"</tags>
+                <inParallel>true</inParallel>
+                <n>2</n>
             </properties>
         </profile>
     </profiles>
