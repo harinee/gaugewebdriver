@@ -3,6 +3,7 @@ Client Operations
 tags: WithLogin, Regression
      |clientName|
      |----------|
+     |INTEL     |
      |junkValue |
 Select client
 -------------
