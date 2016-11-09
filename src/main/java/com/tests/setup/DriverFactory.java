@@ -7,6 +7,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class DriverFactory {
     private static final String FIREFOX = "firefox";
@@ -53,5 +57,27 @@ public class DriverFactory {
         profile.setPreference("browser.cache.disk.enable", !clearCache);
         profile.setPreference("browser.cache.memory.enable", !clearCache);
         return new FirefoxDriver(profile);
+    }
+
+    public static WebDriver getDriver() {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+
+        String browser = System.getenv("browser_name");
+        if (browser == null)  {
+            capabilities.setBrowserName("firefox"); //default
+        }
+
+        capabilities.setBrowserName(browser);
+        capabilities.setCapability("takesScreenshot", "true");
+        RemoteWebDriver driver = null;
+        try {
+            String selenium_hub_ip = System.getenv("SELENIUM_HUB_IP");
+            System.out.println("*************************");
+            System.out.println(capabilities);
+            driver = new RemoteWebDriver(new URL(selenium_hub_ip), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return driver;
     }
 }

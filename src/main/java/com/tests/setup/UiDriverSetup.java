@@ -34,14 +34,19 @@ public class UiDriverSetup {
 
 
     public void startBrowser() {
-        getBrowserDriver();
+        getBrowserDriver(true);
         String baseUrl = new Application().getUrl();
         new Browser().navigateTo(baseUrl);
     }
 
-    private void getBrowserDriver() {
+    private void getBrowserDriver(Boolean isRemoteServer) {
         System.out.println("====>>>> clear cache value: " + Browser.clear_cache);
-        driver = DriverFactory.createDriver(Browser.browserName, Browser.clear_cache);
+        if (isRemoteServer){
+            driver = DriverFactory.getDriver();
+        }
+        else {
+            driver = DriverFactory.createDriver(Browser.browserName, Browser.clear_cache);
+        }
         if (Browser.clear_cache) {
             driver.manage().deleteAllCookies();
         }
